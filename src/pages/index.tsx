@@ -1,3 +1,4 @@
+import { api } from "@/lib/api";
 import { useEffect, useState } from "react";
 
 export default function Home() {
@@ -5,7 +6,7 @@ export default function Home() {
 
   useEffect(() => {
     const fetchData = async () => {
-      const res = await fetch("/api/hello");
+      const res = await api.hello.$get();
       const { message } = await res.json();
       setMessage(message);
     };
@@ -14,5 +15,22 @@ export default function Home() {
 
   if (!message) return <p>Loading...</p>;
 
-  return <p className="text-red-600 ui-title">{message}</p>;
+  return (
+    <main>
+      <div className="radioGroup">
+        <label htmlFor="theme">
+          <input type="radio" name="theme" value="light" />
+          <span>light</span>
+        </label>
+        <label htmlFor="theme">
+          <input type="radio" name="theme" value="dark" />
+          <span>dark</span>
+        </label>
+        <label htmlFor="theme">
+          <input type="radio" name="theme" value="system" />
+          <span>system</span>
+        </label>
+      </div>
+    </main>
+  );
 }
